@@ -1,4 +1,3 @@
-// (function () {
 let canvas = document.createElement('canvas'),
   ctx = canvas.getContext('2d'),
   w = canvas.width = innerWidth,
@@ -10,7 +9,7 @@ let canvas = document.createElement('canvas'),
     particleRadius: 3,
     particleCount: 60,
     particleMaxVelocity: 0.5,
-
+    lineLength: (h + w) * 0.08,
   };
 
 document.querySelector('body').appendChild(canvas);
@@ -47,7 +46,28 @@ function reDrawBackgroud() {
   ctx.fillRect(0, 0, w, h);
 }
 
-// function 
+function drawLines() {
+  let x1, x2, y1, y2, length, opacity;
+  for (let i in particles) {
+    for (let j in particles) {
+      x1 = particles[i].x;
+      x2 = particles[j].x;
+      y1 = particles[i].y;
+      y2 = particles[j].y;
+      length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+      if (length < properties.lineLength) {
+        opacity = 1 - length / properties.lineLength;
+        ctx.lineWidth = '0,5';
+        ctx.strokeStyle = 'rgba(255, 40, 40, ' + opacity + ')';
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
+        ctx.stroke();
+      }
+    }
+  }
+}
 
 function reDrawParticles() {
   for (let i in particles) {
@@ -59,6 +79,7 @@ function reDrawParticles() {
 function loop() {
   reDrawBackgroud();
   reDrawParticles();
+  drawLines();
   requestAnimationFrame(loop);
 }
 
@@ -71,5 +92,3 @@ function init() {
 }
 
 init();
-
-// }())
