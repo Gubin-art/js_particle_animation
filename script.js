@@ -5,10 +5,10 @@ let canvas = document.createElement('canvas'),
   particles = [],
   properties = {
     bgColor: 'rgba(17, 17, 19, 1)',
-    particleColor: 'rgba(255, 40, 40, 1)',
-    particleRadius: 3,
+    particleColor: 'rgba(255, 120, 120, 1)',
+    particleRadius: 2,
     particleCount: 60,
-    particleMaxVelocity: 0.5,
+    particleMaxVelocity: 0.4,
     lineLength: (h + w) * 0.08,
   };
 
@@ -57,7 +57,7 @@ function drawLines() {
       length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
       if (length < properties.lineLength) {
         opacity = 1 - length / properties.lineLength;
-        ctx.lineWidth = '0,5';
+        ctx.lineWidth = '0.5';
         ctx.strokeStyle = 'rgba(255, 40, 40, ' + opacity + ')';
         ctx.beginPath();
         ctx.moveTo(x1, y1);
